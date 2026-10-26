@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Libro dei canti · San Giovanni Battista, Misilmeri</title>
+<meta name="theme-color" content="#7a2236">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600&family=Newsreader:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#faf8f4;--surface:#fff;--ink:#1f1d24;--muted:#77737f;--line:#e8e4db;--accent:#7a2236;--accent-ink:#fff;--gold:#c9a24a;--fs:1.3rem;
+  --ui:"Figtree",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --serif:"Newsreader",Georgia,"Times New Roman",serif;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){--bg:#17161b;--surface:#201f26;--ink:#ecebf0;--muted:#a09dab;--line:#34323d;--accent:#e08aa1;--accent-ink:#1b1015;color-scheme:dark}
+}
+:root[data-theme="dark"]{--bg:#17161b;--surface:#201f26;--ink:#ecebf0;--muted:#a09dab;--line:#34323d;--accent:#e08aa1;--accent-ink:#1b1015;color-scheme:dark}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--ui);line-height:1.5;-webkit-text-size-adjust:100%}
+button,select,input{font:inherit;color:inherit}
+button{cursor:pointer}
+:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.wrap{max-width:680px;margin:0 auto;padding:0 16px}
+[hidden]{display:none!important}
+mark{background:color-mix(in srgb,var(--accent) 22%,transparent);color:inherit;border-radius:3px;padding:0 1px}
+.dot{width:9px;height:9px;border-radius:50%;background:var(--c,var(--muted));flex:none}
+
+/* Intestazione */
+header.top{padding:26px 0 16px}
+.title-row{display:flex;align-items:flex-end;justify-content:space-between;gap:12px}
+.brand{display:flex;align-items:center;gap:12px;margin-bottom:14px;color:var(--accent)}
+.brand svg{width:46px;height:38px;flex:none}
+.eyebrow{margin:0;font-size:.72rem;font-weight:600;letter-spacing:.13em;text-transform:uppercase;line-height:1.4}
+h1{font-family:var(--serif);font-weight:400;font-size:2.2rem;line-height:1.08;letter-spacing:-.015em;margin:0}
+.sub{color:var(--muted);font-size:.85rem;margin:6px 0 0}
+.actions{display:flex;gap:8px}
+.icon-btn{border:1px solid var(--line);background:var(--surface);border-radius:12px;min-width:44px;height:44px;display:inline-flex;align-items:center;justify-content:center;font-size:1.05rem}
+.icon-btn[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+
+/* Ricerca e filtri */
+.tools{position:sticky;top:0;z-index:5;background:var(--bg);padding:10px 0 8px;border-bottom:1px solid var(--line)}
+.search{display:flex;gap:8px}
+.search input{flex:1;min-width:0;height:50px;border:1px solid var(--line);border-radius:14px;padding:0 16px 0 44px;font-size:1rem;background:var(--surface) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='%23908c99' stroke-width='2.2' stroke-linecap='round'%3E%3Ccircle cx='11' cy='11' r='7'/%3E%3Cpath d='M20 20l-3.5-3.5'/%3E%3C/svg%3E") no-repeat 15px center}
+.search input::placeholder{color:var(--muted)}
+.search input:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px color-mix(in srgb,var(--accent) 22%,transparent)}
+.search select{width:38%;max-width:170px;height:50px;border:1px solid var(--line);border-radius:14px;background:var(--surface);padding:0 8px}
+.chips{display:flex;gap:8px;overflow-x:auto;padding:12px 0 2px;scrollbar-width:none}
+.chips::-webkit-scrollbar{display:none}
+.chip{flex:none;background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:8px 14px;font-size:.9rem;display:inline-flex;align-items:center;gap:8px}
+.chip[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+
+/* Elenco */
+.list{list-style:none;margin:0;padding:8px 0 40px}
+.list li{margin:0 0 10px}
+.list li.letter{margin:14px 2px 6px;font-family:var(--serif);font-size:1.15rem;color:var(--accent)}
+.item{display:flex;gap:12px;align-items:center;width:100%;text-align:left;background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:14px 16px 14px 20px;position:relative;overflow:hidden;transition:transform .12s}
+.item::before{content:"";position:absolute;left:0;top:14px;bottom:14px;width:4px;border-radius:0 4px 4px 0;background:var(--c)}
+.item:active{transform:scale(.985)}
+@media (hover:hover){.item:hover{border-color:var(--c)}}
+.item .body{flex:1;min-width:0}
+.item .t{font-weight:600;font-size:1.05rem;line-height:1.3}
+.item .m{display:flex;align-items:center;gap:7px;color:var(--muted);font-size:.85rem;margin-top:2px}
+.item .snip{font-family:var(--serif);font-style:italic;color:var(--muted);font-size:.95rem;margin-top:4px}
+.star{color:var(--gold);font-size:1.1rem}
+.empty{padding:48px 8px;text-align:center;color:var(--muted)}
+.empty b{display:block;color:var(--ink);font-size:1.05rem;margin-bottom:4px}
+
+/* Canto */
+.bar{position:sticky;top:0;z-index:5;background:var(--bg);border-bottom:1px solid var(--line);padding:6px 0}
+.bar .wrap{display:flex;align-items:center;gap:8px}
+.bar .grow{flex:1}
+.back{border:0;background:none;font-weight:600;color:var(--accent);padding:10px 4px;min-height:44px}
+.head{padding:28px 0 4px}
+.head h2{font-family:var(--serif);font-weight:500;font-size:2.1rem;line-height:1.2;letter-spacing:-.01em;margin:0 0 6px}
+.by{font-family:var(--serif);font-style:italic;color:var(--muted);font-size:1.1rem;margin:0 0 10px}
+.tags{display:flex;flex-wrap:wrap;align-items:center;gap:8px;color:var(--muted);font-size:.88rem}
+.tags .sep{opacity:.5}
+.links{display:flex;gap:10px;margin:18px 0 0}
+.links a{flex:1;max-width:200px;text-align:center;text-decoration:none;color:var(--accent);border:1px solid var(--accent);border-radius:12px;padding:11px 14px;font-weight:600;font-size:.95rem}
+.lyrics{margin:18px 0 22px;background:var(--surface);border:1px solid var(--line);border-top:4px solid var(--c,var(--accent));border-radius:16px;padding:26px 22px 8px;font-family:var(--serif);font-size:var(--fs);line-height:1.6}
+.lyrics p{margin:0 0 1.4em;white-space:pre-line}
+.lyrics strong{font-weight:600}
+.vn{display:inline-block;min-width:1.4em;color:var(--accent);font-weight:600}
+.pager{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:0 0 56px}
+.pager button{border:1px solid var(--line);background:var(--surface);border-radius:14px;padding:12px 14px;text-align:left;min-height:56px}
+.pager button:last-child{text-align:right}
+.pager small{display:block;color:var(--muted);font-size:.78rem}
+.pager span{font-weight:600}
+.pager button:disabled{opacity:.35;cursor:default}
+@media (prefers-reduced-motion:no-preference){.song article{animation:open .3s ease-out}@keyframes open{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}}
+</style>
+</head>
+<body>
+
+<section id="listView">
+  <header class="top">
+    <div class="wrap">
+      <div class="title-row">
+        <div>
+          <div class="brand">
+            <svg viewBox="0 0 48 40" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 36H46"/><path d="M4 36V14h10v22M4 14l5-8 5 8"/><path d="M34 36V14h10v22M34 14l5-8 5 8"/><path d="M14 36V20l10-8 10 8v16"/><path d="M21 36v-8a3 3 0 0 1 6 0v8"/><path d="M24 12V6M22 8.5h4M9 20v4M39 20v4"/></svg>
+            <p class="eyebrow">San Giovanni Battista<br>Misilmeri</p>
+          </div>
+          <h1>Libro dei canti</h1>
+          <p class="sub" id="count">Caricamento…</p>
+        </div>
+        <div class="actions">
+          <button class="icon-btn" id="favFilter" aria-pressed="false" aria-label="Mostra solo i preferiti" title="Preferiti">★</button>
+          <button class="icon-btn" id="themeBtn" aria-label="Cambia tema chiaro o scuro" title="Tema">◐</button>
+        </div>
+      </div>
+    </div>
+  </header>
+  <div class="tools"><div class="wrap">
+    <div class="search">
+      <input id="q" type="search" inputmode="search" autocomplete="off" placeholder="Cerca titolo, autore o testo" aria-label="Cerca un canto">
+      <select id="tempo" aria-label="Tempo liturgico"><option value="">Tutti i tempi</option></select>
+    </div>
+    <div class="chips" id="chips" role="group" aria-label="Filtra per momento"></div>
+  </div></div>
+  <main class="wrap"><ul class="list" id="list"></ul></main>
+</section>
+
+<section id="songView" class="song" hidden>
+  <div class="bar"><div class="wrap">
+    <button class="back" id="back">‹ Tutti i canti</button>
+    <span class="grow"></span>
+    <button class="icon-btn" id="smaller" aria-label="Riduci il testo">A−</button>
+    <button class="icon-btn" id="bigger" aria-label="Ingrandisci il testo">A+</button>
+    <button class="icon-btn" id="fav" aria-pressed="false" aria-label="Aggiungi ai preferiti">★</button>
+  </div></div>
+  <article class="wrap">
+    <div class="head">
+      <h2 id="sTitle"></h2>
+      <p class="by" id="sBy"></p>
+      <div class="tags"><span class="dot" id="sDot"></span><span id="sCat"></span><span class="sep" id="sSep">·</span><span id="sTempo"></span></div>
+      <div class="links" id="sLinks"></div>
+    </div>
+    <div class="lyrics" id="sText"></div>
+    <nav class="pager" aria-label="Canto precedente e successivo">
+      <button id="prev"><small>Precedente</small><span></span></button>
+      <button id="next"><small>Successivo</small><span></span></button>
+    </nav>
+  </article>
+</section>
+
+<script>
+/* Dove stanno i canti. Può essere anche un indirizzo completo, ad esempio un file "raw" su GitHub. */
+var DATA_URL = "canti.json";
+var PALETTE = ["#c49a2c","#c0392b","#3b82c4","#2f9e6e","#7a5ac8","#d9763a","#12868f","#a0527c"];
+
+var $ = function(id){return document.getElementById(id)};
+var SONGS=[], CATS={}, favs=[], view=[], cat="", tempo="", favOnly=false, lastY=0, current=null;
+var fs = parseFloat(store("fs")) || 1.3;
+
+function store(k,v){try{if(v===undefined)return localStorage.getItem(k);localStorage.setItem(k,v)}catch(e){return null}}
+function norm(s){var o="";for(var i=0;i<s.length;i++){o+=(s[i].normalize("NFD").replace(/[\u0300-\u036f]/g,"").toLowerCase()[0]||s[i])}return o}
+function esc(s){return String(s).replace(/[&<>"]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
+function hl(s,q){if(!q)return esc(s);var i=norm(s).indexOf(q);return i<0?esc(s):esc(s.slice(0,i))+"<mark>"+esc(s.slice(i,i+q.length))+"</mark>"+esc(s.slice(i+q.length))}
+function safeUrl(u){return /^https?:\/\//i.test(u||"")?u:""}
+
+try{favs=JSON.parse(store("fav")||"[]")}catch(e){favs=[]}
+
+/* Caricamento dei dati */
+fetch(DATA_URL,{cache:"no-cache"}).then(function(r){if(!r.ok)throw new Error(r.status);return r.json()}).then(init).catch(function(){
+  $("count").textContent="";
+  $("list").innerHTML='<li class="empty"><b>Non riesco a caricare i canti</b>Controlla la connessione. Se stai aprendo il file dal computer, avvialo tramite un server (vedi le istruzioni).</li>';
+});
+
+function init(data){
+  SONGS=data.filter(function(d){return d&&d.titoloCanto}).map(function(d){
+    var x=String(d.testoCanto||"").replace(/\r/g,"");
+    return {id:String(d.id||d.titoloCanto),t:d.titoloCanto.trim(),c:d.categoriaCanto||"Altro",a:d.autoreCanto||"",tl:d.tempoLiturgico||"",x:x,sp:safeUrl(d.spartito),as:safeUrl(d.ascolta),
+      nt:norm(d.titoloCanto),na:norm(d.autoreCanto||""),nx:norm(x.replace(/\*\*/g,""))};
+  });
+  SONGS.sort(function(a,b){return a.t.localeCompare(b.t,"it")});
+  var cats={},tempi={};
+  SONGS.forEach(function(s){cats[s.c]=1;if(s.tl)tempi[s.tl]=1});
+  Object.keys(cats).sort(function(a,b){return a.localeCompare(b,"it")}).forEach(function(k,i){CATS[k]=PALETTE[i%PALETTE.length]});
+  $("tempo").innerHTML='<option value="">Tutti i tempi</option>'+Object.keys(tempi).sort(function(a,b){return a.localeCompare(b,"it")}).map(function(k){return'<option>'+esc(k)+'</option>'}).join("");
+  drawChips();drawList();route();
+}
+
+/* Tema */
+function applyTheme(t){if(t)document.documentElement.setAttribute("data-theme",t)}
+applyTheme(store("theme"));
+$("themeBtn").onclick=function(){
+  var cur=document.documentElement.getAttribute("data-theme");
+  var dark=cur==="dark"||(!cur&&matchMedia("(prefers-color-scheme: dark)").matches);
+  var t=dark?"light":"dark";applyTheme(t);store("theme",t);
+};
+
+/* Filtri */
+function drawChips(){
+  var h='<button class="chip" aria-pressed="'+(cat===""?"true":"false")+'" data-c="">Tutti</button>';
+  Object.keys(CATS).forEach(function(k){
+    h+='<button class="chip" aria-pressed="'+(cat===k?"true":"false")+'" data-c="'+esc(k)+'"><span class="dot" style="--c:'+CATS[k]+'"></span>'+esc(k)+'</button>';
+  });
+  $("chips").innerHTML=h;
+}
+$("chips").onclick=function(e){var b=e.target.closest(".chip");if(!b)return;cat=b.dataset.c;drawChips();drawList()};
+$("tempo").onchange=function(){tempo=this.value;drawList()};
+$("q").oninput=drawList;
+$("favFilter").onclick=function(){favOnly=!favOnly;this.setAttribute("aria-pressed",favOnly);drawList()};
+
+/* Elenco */
+function drawList(){
+  var q=norm($("q").value.trim()),h="",last="";
+  view=SONGS.filter(function(s){
+    return (!cat||s.c===cat)&&(!tempo||s.tl===tempo)&&(!favOnly||favs.indexOf(s.id)>=0)&&
+      (!q||s.nt.indexOf(q)>=0||s.na.indexOf(q)>=0||s.nx.indexOf(q)>=0);
+  });
+  view.forEach(function(s){
+    if(!q){var L=norm(s.t[0]).toUpperCase();if(L!==last){last=L;h+='<li class="letter" aria-hidden="true">'+esc(L)+'</li>'}}
+    var snip="";
+    if(q&&s.nt.indexOf(q)<0&&s.na.indexOf(q)<0){
+      var lines=s.x.replace(/\*\*/g,"").split("\n");
+      for(var k=0;k<lines.length;k++){if(norm(lines[k]).indexOf(q)>=0){snip='<div class="snip">… '+hl(lines[k],q)+' …</div>';break}}
+    }
+    h+='<li><button class="item" style="--c:'+(CATS[s.c]||"var(--muted)")+'" data-id="'+esc(s.id)+'"><span class="body"><div class="t">'+hl(s.t,q)+'</div><div class="m"><span class="dot"></span>'+esc(s.c)+(s.a?' · '+hl(s.a,q):"")+'</div>'+snip+'</span>'+(favs.indexOf(s.id)>=0?'<span class="star" aria-label="Preferito">★</span>':"")+'</button></li>';
+  });
+  if(!view.length)h='<li class="empty"><b>Nessun canto trovato</b>'+(favOnly?"Non hai ancora segnato nessun preferito: apri un canto e tocca la stella.":"Prova con una parola del titolo, il nome dell’autore o una parola del testo.")+'</li>';
+  $("list").innerHTML=h;
+  $("count").textContent=SONGS.length+" canti"+(view.length!==SONGS.length?" · "+view.length+" trovati":"");
+}
+$("list").onclick=function(e){var b=e.target.closest(".item");if(b){lastY=window.scrollY;location.hash="canto-"+b.dataset.id}};
+
+/* Testo del canto: **grassetto** per il ritornello, "1." per il numero della strofa */
+function fmt(t){
+  var bold=false;
+  return t.split(/\n{2,}/).map(function(p){
+    var num="",m=p.match(/^(\d+)\.\s+/);
+    if(m){num='<span class="vn">'+m[1]+'.</span>';p=p.slice(m[0].length)}
+    var h=p.split("**").map(function(s,i){if(i>0)bold=!bold;s=esc(s);return bold&&s?"<strong>"+s+"</strong>":s}).join("");
+    return "<p>"+num+h+"</p>";
+  }).join("");
+}
+
+/* Pagina del canto */
+function showSong(s){
+  current=s;
+  var list=view.indexOf(s)>=0?view:SONGS,i=list.indexOf(s),p=list[i-1],n=list[i+1];
+  $("sTitle").textContent=s.t;
+  $("sBy").textContent=s.a;$("sBy").hidden=!s.a;
+  $("sCat").textContent=s.c;$("sTempo").textContent=s.tl;$("sSep").hidden=!s.tl;
+  $("sDot").style.setProperty("--c",CATS[s.c]||"var(--muted)");
+  $("songView").style.setProperty("--c",CATS[s.c]||"var(--accent)");
+  $("sLinks").innerHTML=(s.sp?'<a href="'+esc(s.sp)+'" target="_blank" rel="noopener">Spartito</a>':"")+(s.as?'<a href="'+esc(s.as)+'" target="_blank" rel="noopener">Ascolta</a>':"");
+  $("sText").innerHTML=fmt(s.x);
+  $("prev").disabled=!p;$("next").disabled=!n;
+  $("prev").lastChild.textContent=p?p.t:"";$("next").lastChild.textContent=n?n.t:"";
+  $("prev").onclick=function(){if(p)location.hash="canto-"+p.id};
+  $("next").onclick=function(){if(n)location.hash="canto-"+n.id};
+  drawFav();
+  $("listView").hidden=true;$("songView").hidden=false;window.scrollTo(0,0);
+  document.title=s.t+" · Libro dei canti";
+}
+function showList(){
+  $("songView").hidden=true;$("listView").hidden=false;document.title="Libro dei canti · San Giovanni Battista, Misilmeri";
+  drawList();window.scrollTo(0,lastY);
+}
+function route(){
+  var m=/^#canto-(.+)$/.exec(location.hash),s=null;
+  if(m){var id=decodeURIComponent(m[1]);SONGS.forEach(function(x){if(x.id===id)s=x})}
+  if(s)showSong(s);else showList();
+}
+window.addEventListener("hashchange",route);
+$("back").onclick=function(){history.replaceState(null,"",location.pathname+location.search);route()};
+
+/* Preferiti e dimensione del testo */
+function drawFav(){var on=favs.indexOf(current.id)>=0;$("fav").setAttribute("aria-pressed",on);$("fav").setAttribute("aria-label",on?"Togli dai preferiti":"Aggiungi ai preferiti")}
+$("fav").onclick=function(){
+  var i=favs.indexOf(current.id);
+  if(i>=0)favs.splice(i,1);else favs.push(current.id);
+  store("fav",JSON.stringify(favs));drawFav();
+};
+function setFs(v){fs=Math.max(1,Math.min(2.4,v));document.documentElement.style.setProperty("--fs",fs+"rem");store("fs",String(fs))}
+$("bigger").onclick=function(){setFs(fs+.15)};
+$("smaller").onclick=function(){setFs(fs-.15)};
+setFs(fs);
+
+/* Funzionamento offline */
+if("serviceWorker" in navigator&&location.protocol.indexOf("http")===0){navigator.serviceWorker.register("sw.js").catch(function(){})}
+</script>
+</body>
+</html>
