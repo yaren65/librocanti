@@ -241,6 +241,25 @@ function fmt(t){
   }).join("");
 }
 
+/* Spartito: dal link della pagina GitHub (…/blob/…) si passa al file vero (raw) e lo si scarica */
+function rawUrl(u){
+  var m=/^https:\/\/github\.com\/([^\/]+)\/([^\/]+)\/blob\/(.+?)(\?.*)?$/.exec(u);
+  return m?"https://raw.githubusercontent.com/"+m[1]+"/"+m[2]+"/"+m[3]:u;
+}
+$("sLinks").onclick=function(e){
+  var a=e.target.closest("a.dl");if(!a)return;
+  e.preventDefault();
+  var url=a.href,label=a.textContent,name=decodeURIComponent(url.split("?")[0].split("/").pop())||"spartito.pdf";
+  a.textContent="Scarico…";
+  fetch(url).then(function(r){if(!r.ok)throw new Error(r.status);return r.blob()}).then(function(b){
+    var l=document.createElement("a");
+    l.href=URL.createObjectURL(new Blob([b],{type:"application/pdf"}));l.download=name;
+    document.body.appendChild(l);l.click();l.remove();
+    setTimeout(function(){URL.revokeObjectURL(l.href)},5000);
+    a.textContent=label;
+  }).catch(function(){a.textContent=label;window.open(url,"_blank","noopener")});
+};
+
 /* Pagina del canto */
 function showSong(s){
   current=s;
@@ -250,7 +269,7 @@ function showSong(s){
   $("sCat").textContent=s.c;$("sTempo").textContent=s.tl;$("sSep").hidden=!s.tl;
   $("sDot").style.setProperty("--c",CATS[s.c]||"var(--muted)");
   $("songView").style.setProperty("--c",CATS[s.c]||"var(--accent)");
-  $("sLinks").innerHTML=(s.sp?'<a href="'+esc(s.sp)+'" target="_blank" rel="noopener">Spartito</a>':"")+(s.as?'<a href="'+esc(s.as)+'" target="_blank" rel="noopener">Ascolta</a>':"");
+  $("sLinks").innerHTML=(s.sp?'<a class="dl" href="'+esc(rawUrl(s.sp))+'" target="_blank" rel="noopener">Spartito</a>':"")+(s.as?'<a href="'+esc(s.as)+'" target="_blank" rel="noopener">Ascolta</a>':"");
   $("sText").innerHTML=fmt(s.x);
   $("prev").disabled=!p;$("next").disabled=!n;
   $("prev").lastChild.textContent=p?p.t:"";$("next").lastChild.textContent=n?n.t:"";
